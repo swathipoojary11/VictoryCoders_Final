@@ -1,45 +1,86 @@
+import { useState } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import TempleCard from "@/components/TempleCard";
 import FestivalsSection from "@/components/FestivalsSection";
 import ExploreSection from "@/components/ExploreSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import MapView from "@/components/MapView";
+import TempleListView from "@/components/TempleListView";
+import TempleDetailPanel from "@/components/TempleDetailPanel";
 import { temples } from "@/data/temples";
-import { Sparkles } from "lucide-react";
+import { Temple } from "@/data/temples";
+import { Button } from "@/components/ui/button";
+import { Map as MapIcon, List } from "lucide-react";
 
 const Index = () => {
+  const [selectedTemple, setSelectedTemple] = useState<Temple | null>(null);
+  const [viewMode, setViewMode] = useState<"map" | "list">("map");
+
+  const nearbyTemples = selectedTemple
+    ? temples
+        .filter((t) => t.region === selectedTemple.region && t.id !== selectedTemple.id)
+        .slice(0, 3)
+    : [];
+
   return (
     <div className="min-h-screen">
       <Header />
       <Hero />
 
-      {/* Temples Section */}
-      <section id="temples" className="py-20 bg-background">
+      {/* Map + List Split View Section */}
+      <section className="py-8" id="temples">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 mb-4">
-              <Sparkles className="h-4 w-4 text-primary animate-glow" />
-              <span className="text-primary text-sm font-semibold">Divine Heritage</span>
-            </div>
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Featured Temples
+          <div className="text-center mb-8">
+            <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-3">
+              Sacred Temples
             </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Explore the sacred shrines that have stood as beacons of faith for centuries
+            <p className="text-base text-muted-foreground max-w-2xl mx-auto">
+              Explore the divine heritage of coastal Karnataka
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {temples.map((temple, index) => (
-              <div
-                key={temple.id}
-                className="animate-fade-in"
-                style={{ animationDelay: `${(index % 9) * 0.05}s` }}
-              >
-                <TempleCard temple={temple} index={index} />
+          {/* Mobile view toggle */}
+          <div className="flex justify-center gap-2 mb-4 md:hidden">
+            <Button
+              variant={viewMode === "map" ? "default" : "outline"}
+              onClick={() => setViewMode("map")}
+              className="flex-1"
+            >
+              <MapIcon className="h-4 w-4 mr-2" />
+              Map
+            </Button>
+            <Button
+              variant={viewMode === "list" ? "default" : "outline"}
+              onClick={() => setViewMode("list")}
+              className="flex-1"
+            >
+              <List className="h-4 w-4 mr-2" />
+              List
+            </Button>
+          </div>
+
+          {/* Desktop split view, Mobile stacked */}
+          <div className="bg-card rounded-[var(--radius)] overflow-hidden card-shadow">
+            <div className="flex flex-col md:flex-row h-[600px]">
+              {/* Map View */}
+              <div className={`${viewMode === "map" ? "block" : "hidden"} md:block md:w-[55%] h-full`}>
+                <MapView
+                  temples={temples}
+                  selectedTemple={selectedTemple}
+                  onTempleSelect={setSelectedTemple}
+                />
               </div>
-            ))}
+
+              {/* List View */}
+              <div className={`${viewMode === "list" ? "block" : "hidden"} md:block md:w-[45%] h-full border-t md:border-t-0 md:border-l border-border`}>
+                <TempleListView
+                  temples={temples}
+                  selectedTemple={selectedTemple}
+                  onTempleSelect={setSelectedTemple}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -48,6 +89,15 @@ const Index = () => {
       <ExploreSection />
       <ContactSection />
       <Footer />
+
+      {/* Temple Detail Panel */}
+      {selectedTemple && (
+        <TempleDetailPanel
+          temple={selectedTemple}
+          onClose={() => setSelectedTemple(null)}
+          nearbyTemples={nearbyTemples}
+        />
+      )}
     </div>
   );
 };

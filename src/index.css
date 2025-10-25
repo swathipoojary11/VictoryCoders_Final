@@ -10,25 +10,25 @@ All colors MUST be HSL.
   :root {
     /* Spiritual warm palette - saffron, ivory, gold */
     --background: 30 100% 98%;
-    --foreground: 0 0% 13%;
+    --foreground: 0 0% 7%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 13%;
+    --card-foreground: 0 0% 7%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 13%;
+    --popover-foreground: 0 0% 7%;
 
     --primary: 31 92% 45%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 30 50% 92%;
-    --secondary-foreground: 0 0% 13%;
+    --secondary-foreground: 0 0% 7%;
 
     --muted: 30 40% 95%;
     --muted-foreground: 0 0% 42%;
 
-    --accent: 40 96% 53%;
-    --accent-foreground: 0 0% 13%;
+    --accent: 27 96% 61%;
+    --accent-foreground: 0 0% 7%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -39,23 +39,38 @@ All colors MUST be HSL.
 
     --radius: 0.875rem;
 
+    /* Master prompt design tokens */
+    --bg: 30 100% 98%;
+    --panel: 0 0% 100%;
+    --muted-text: 0 0% 42%;
+    --text: 0 0% 7%;
+    --accent-primary: 31 92% 45%;
+    --accent-secondary: 27 96% 61%;
+    --glass: 0 0% 100% / 0.8;
+    --card-shadow: 0 8px 22px hsl(0 0% 6% / 0.06);
+    --transition: 190ms cubic-bezier(0.2, 0.9, 0.25, 1);
+    --max-width: 1200px;
+    
     /* Custom spiritual design tokens */
     --saffron-glow: 31 92% 45%;
-    --temple-gold: 40 96% 53%;
+    --temple-gold: 27 96% 61%;
     --sacred-beige: 30 50% 92%;
     --divine-shadow: 31 50% 25%;
     
     /* Gradients */
-    --gradient-spiritual: linear-gradient(135deg, hsl(31 92% 45% / 0.1) 0%, hsl(40 96% 53% / 0.05) 100%);
-    --gradient-hero: linear-gradient(180deg, hsl(31 92% 45% / 0.3) 0%, transparent 100%);
+    --gradient-spiritual: linear-gradient(135deg, hsl(31 92% 45% / 0.1) 0%, hsl(27 96% 61% / 0.05) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 0% / 0.18) 0%, hsl(0 0% 0% / 0.12) 100%);
+    --gradient-overlay: linear-gradient(to top, hsl(0 0% 0% / 0.8) 0%, hsl(0 0% 0% / 0.4) 50%, transparent 100%);
     
     /* Shadows */
     --shadow-temple: 0 4px 20px hsl(31 92% 45% / 0.15);
     --shadow-glow: 0 0 30px hsl(31 92% 45% / 0.25);
     --shadow-soft: 0 2px 12px hsl(0 0% 0% / 0.08);
+    --shadow-card: 0 8px 22px hsl(0 0% 6% / 0.06);
     
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: var(--transition);
   }
 
   .dark {
@@ -126,15 +141,30 @@ All colors MUST be HSL.
     box-shadow: var(--shadow-soft);
   }
   
+  .card-shadow {
+    box-shadow: var(--shadow-card);
+  }
+  
   .transition-smooth {
     transition: var(--transition-smooth);
   }
   
+  .transition-fast {
+    transition: var(--transition-fast);
+  }
+  
   .hover-lift {
-    @apply transition-smooth hover:scale-105 hover:-translate-y-1;
+    @apply transition-smooth hover:scale-[1.02] hover:-translate-y-0.5;
   }
   
   .hover-glow {
     @apply transition-smooth hover:shadow-[0_0_30px_hsl(var(--saffron-glow)/0.4)];
   }
+  
+  .hover-accent-border {
+    @apply transition-fast hover:border-l-4 hover:border-l-primary;
+  }
 }
+
+/* Mapbox styles */
+@import 'mapbox-gl/dist/mapbox-gl.css';
