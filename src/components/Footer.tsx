@@ -24,12 +24,12 @@ const Footer = () => {
             <p className="text-sm text-muted-foreground leading-relaxed">
               Discover, learn, and experience the sacred heritage of Tulunadu's coastal temples.
             </p>
-            {/* Diya Animation */}
+            {/* Diya Image */}
             <div className="relative w-16 h-16 opacity-80">
               <img 
                 src={diyaImage} 
                 alt="Diya lamp" 
-                className="w-full h-full object-cover rounded-full animate-glow"
+                className="w-full h-full object-cover rounded-full"
               />
             </div>
           </div>
@@ -46,18 +46,23 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/education" className="text-muted-foreground hover:text-primary transition-colors">
+                  Get Educated
+                </Link>
+              </li>
+              <li>
                 <Link to="/#temples" className="text-muted-foreground hover:text-primary transition-colors">
                   Temples
                 </Link>
               </li>
               <li>
-                <Link to="/#festivals" className="text-muted-foreground hover:text-primary transition-colors">
-                  Festivals
+                <Link to="/calendar" className="text-muted-foreground hover:text-primary transition-colors">
+                  Calendar
                 </Link>
               </li>
               <li>
-                <Link to="/#explore" className="text-muted-foreground hover:text-primary transition-colors">
-                  Explore
+                <Link to="/book-travel" className="text-muted-foreground hover:text-primary transition-colors">
+                  Book Travel
                 </Link>
               </li>
             </ul>
@@ -121,7 +126,7 @@ const Footer = () => {
             </p>
             <div className="flex items-center gap-1 text-sm text-muted-foreground">
               <span>Made with</span>
-              <Heart className="h-4 w-4 text-primary fill-primary animate-glow" />
+              <Heart className="h-4 w-4 text-primary fill-primary" />
               <span>for preserving our temples</span>
             </div>
           </div>

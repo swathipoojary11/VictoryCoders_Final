@@ -19,7 +19,7 @@ const TempleCard = ({ temple, index }: TempleCardProps) => {
   const displayImage = index % 2 === 0 ? templeImage1 : templeImage2;
 
   return (
-    <Card className="group overflow-hidden border-border hover-lift temple-shadow hover-glow bg-card">
+    <Card className="group overflow-hidden border-border hover-lift temple-shadow bg-card">
       <div className="relative h-56 overflow-hidden">
         <img
           src={displayImage}

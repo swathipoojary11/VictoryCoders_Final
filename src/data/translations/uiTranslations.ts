@@ -12,6 +12,10 @@ export const uiTranslations: UITranslations = {
     en: 'Temples',
     kn: 'ದೇವಾಲಯಗಳು'
   },
+  'Get Educated': {
+    en: 'Get Educated',
+    kn: 'ಶಿಕ್ಷಣ'
+  },
   'Festivals': {
     en: 'Festivals',
     kn: 'ಹಬ್ಬಗಳು'
@@ -20,9 +24,161 @@ export const uiTranslations: UITranslations = {
     en: 'Explore',
     kn: 'ಅನ್ವೇಷಿಸಿ'
   },
+  'Book Travel': {
+    en: 'Book Travel',
+    kn: 'ಪ್ರಯಾಣ ಕಾಯ್ದಿರಿಸಿ'
+  },
+  'Travel Services': {
+    en: 'Travel Services',
+    kn: 'ಪ್ರಯಾಣ ಸೇವೆಗಳು'
+  },
+  'Book Your Temple Journey': {
+    en: 'Book Your Temple Journey',
+    kn: 'ನಿಮ್ಮ ದೇವಾಲಯ ಪ್ರಯಾಣವನ್ನು ಕಾಯ್ದಿರಿಸಿ'
+  },
+  'Experience divine darshan with our expert guides and comfortable travel arrangements': {
+    en: 'Experience divine darshan with our expert guides and comfortable travel arrangements',
+    kn: 'ನಮ್ಮ ತಜ್ಞ ಮಾರ್ಗದರ್ಶಕರು ಮತ್ತು ಆರಾಮದಾಯಕ ಪ್ರಯಾಣ ವ್ಯವಸ್ಥೆಗಳೊಂದಿಗೆ ದೈವಿಕ ದರ್ಶನವನ್ನು ಅನುಭವಿಸಿ'
+  },
+  'Our Services': {
+    en: 'Our Services',
+    kn: 'ನಮ್ಮ ಸೇವೆಗಳು'
+  },
+  'Expert Temple Guide': {
+    en: 'Expert Temple Guide',
+    kn: 'ತಜ್ಞ ದೇವಾಲಯ ಮಾರ್ಗದರ್ಶಕ'
+  },
+  'Knowledgeable local guides who share history, rituals, and significance': {
+    en: 'Knowledgeable local guides who share history, rituals, and significance',
+    kn: 'ಇತಿಹಾಸ, ಆಚರಣೆಗಳು ಮತ್ತು ಮಹತ್ವವನ್ನು ಹಂಚಿಕೊಳ್ಳುವ ಜ್ಞಾನವುಳ್ಳ ಸ್ಥಳೀಯ ಮಾರ್ಗದರ್ಶಕರು'
+  },
+  'per day': {
+    en: 'per day',
+    kn: 'ದಿನಕ್ಕೆ'
+  },
+  'Transportation Service': {
+    en: 'Transportation Service',
+    kn: 'ಸಾರಿಗೆ ಸೇವೆ'
+  },
+  'Comfortable AC vehicles with experienced drivers for temple visits': {
+    en: 'Comfortable AC vehicles with experienced drivers for temple visits',
+    kn: 'ದೇವಾಲಯ ಭೇಟಿಗಾಗಿ ಅನುಭವಿ ಚಾಲಕರೊಂದಿಗೆ ಆರಾಮದಾಯಕ ಎಸಿ ವಾಹನಗಳು'
+  },
+  'Complete Package': {
+    en: 'Complete Package',
+    kn: 'ಸಂಪೂರ್ಣ ಪ್ಯಾಕೇಜ್'
+  },
+  'Guide + Transport + Multi-temple itinerary planning': {
+    en: 'Guide + Transport + Multi-temple itinerary planning',
+    kn: 'ಮಾರ್ಗದರ್ಶಕ + ಸಾರಿಗೆ + ಬಹು-ದೇವಾಲಯ ಪ್ರಯಾಣ ಯೋಜನೆ'
+  },
+  'Request Booking': {
+    en: 'Request Booking',
+    kn: 'ಕಾಯ್ದಿರಿಸುವಿಕೆ ವಿನಂತಿಸಿ'
+  },
+  'Your Name': {
+    en: 'Your Name',
+    kn: 'ನಿಮ್ಮ ಹೆಸರು'
+  },
+  'Email': {
+    en: 'Email',
+    kn: 'ಇಮೇಲ್'
+  },
+  'Phone': {
+    en: 'Phone',
+    kn: 'ಫೋನ್'
+  },
+  'Temple Preference': {
+    en: 'Temple Preference',
+    kn: 'ದೇವಾಲಯ ಆದ್ಯತೆ'
+  },
+  'Select Temple': {
+    en: 'Select Temple',
+    kn: 'ದೇವಾಲಯ ಆಯ್ಕೆಮಾಡಿ'
+  },
+  'Multiple Temples Tour': {
+    en: 'Multiple Temples Tour',
+    kn: 'ಬಹು ದೇವಾಲಯಗಳ ಪ್ರವಾಸ'
+  },
+  'Visit Date': {
+    en: 'Visit Date',
+    kn: 'ಭೇಟಿ ದಿನಾಂಕ'
+  },
+  'Number of People': {
+    en: 'Number of People',
+    kn: 'ಜನರ ಸಂಖ್ಯೆ'
+  },
+  'Service Type': {
+    en: 'Service Type',
+    kn: 'ಸೇವೆಯ ಪ್ರಕಾರ'
+  },
+  'Guide Only': {
+    en: 'Guide Only',
+    kn: 'ಮಾರ್ಗದರ್ಶಕ ಮಾತ್ರ'
+  },
+  'Transport Only': {
+    en: 'Transport Only',
+    kn: 'ಸಾರಿಗೆ ಮಾತ್ರ'
+  },
+  'Thank you for your booking request! Our travel coordinator will contact you within 24 hours.': {
+    en: 'Thank you for your booking request! Our travel coordinator will contact you within 24 hours.',
+    kn: 'ನಿಮ್ಮ ಕಾಯ್ದಿರಿಸುವಿಕೆ ವಿನಂತಿಗೆ ಧನ್ಯವಾದಗಳು! ನಮ್ಮ ಪ್ರಯಾಣ ಸಂಯೋಜಕರು 24 ಗಂಟೆಗಳಲ್ಲಿ ನಿಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸುತ್ತಾರೆ.'
+  },
+  'Our team will contact you within 24 hours to confirm your booking and discuss the itinerary.': {
+    en: 'Our team will contact you within 24 hours to confirm your booking and discuss the itinerary.',
+    kn: 'ನಿಮ್ಮ ಕಾಯ್ದಿರಿಸುವಿಕೆಯನ್ನು ದೃಢೀಕರಿಸಲು ಮತ್ತು ಪ್ರಯಾಣ ಕಾರ್ಯಕ್ರಮವನ್ನು ಚರ್ಚಿಸಲು ನಮ್ಮ ತಂಡ 24 ಗಂಟೆಗಳಲ್ಲಿ ನಿಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸುತ್ತದೆ.'
+  },
   'Contact': {
     en: 'Contact',
     kn: 'ಸಂಪರ್ಕಿಸಿ'
+  },
+  'Add Temple Listing': {
+    en: 'Add Temple Listing',
+    kn: 'ದೇವಾಲಯ ಸೇರಿಸಿ'
+  },
+  'Submit Temple Information': {
+    en: 'Submit Temple Information',
+    kn: 'ದೇವಾಲಯ ಮಾಹಿತಿ ಸಲ್ಲಿಸಿ'
+  },
+  'Help us expand our temple directory': {
+    en: 'Help us expand our temple directory by sharing details about temples you know',
+    kn: 'ನಿಮಗೆ ತಿಳಿದಿರುವ ದೇವಾಲಯಗಳ ವಿವರಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳುವ ಮೂಲಕ ನಮ್ಮ ದೇವಾಲಯ ಪಟ್ಟಿಯನ್ನು ವಿಸ್ತರಿಸಲು ಸಹಾಯ ಮಾಡಿ'
+  },
+  'Temple Name': {
+    en: 'Temple Name',
+    kn: 'ದೇವಾಲಯದ ಹೆಸರು'
+  },
+  'Temple Location': {
+    en: 'Temple Location',
+    kn: 'ದೇವಾಲಯದ ಸ್ಥಳ'
+  },
+  'Main Deity': {
+    en: 'Main Deity',
+    kn: 'ಮುಖ್ಯ ದೇವರು'
+  },
+  'Temple History & Description': {
+    en: 'Temple History & Description',
+    kn: 'ದೇವಾಲಯದ ಇತಿಹಾಸ ಮತ್ತು ವಿವರಣೆ'
+  },
+  'Your Contact Email': {
+    en: 'Your Contact Email',
+    kn: 'ನಿಮ್ಮ ಸಂಪರ್ಕ ಇಮೇಲ್'
+  },
+  'Submit Temple Listing': {
+    en: 'Submit Temple Listing',
+    kn: 'ದೇವಾಲಯ ಪಟ್ಟಿ ಸಲ್ಲಿಸಿ'
+  },
+  "Thank you for your submission! We'll review the temple information and add it to our directory soon.": {
+    en: "Thank you for your submission! We'll review the temple information and add it to our directory soon.",
+    kn: 'ನಿಮ್ಮ ಸಲ್ಲಿಕೆಗಾಗಿ ಧನ್ಯವಾದಗಳು! ನಾವು ದೇವಾಲಯದ ಮಾಹಿತಿಯನ್ನು ಪರಿಶೀಲಿಸಿ ಶೀಘ್ರದಲ್ಲೇ ನಮ್ಮ ಪಟ್ಟಿಗೆ ಸೇರಿಸುತ್ತೇವೆ.'
+  },
+  "We appreciate your interest in preserving the sacred heritage of Tulunadu's temples.": {
+    en: "We appreciate your interest in preserving the sacred heritage of Tulunadu's temples.",
+    kn: 'ತುಳುನಾಡಿನ ದೇವಾಲಯಗಳ ಪವಿತ್ರ ಪರಂಪರೆಯನ್ನು ಸಂರಕ್ಷಿಸುವಲ್ಲಿ ನಿಮ್ಮ ಆಸಕ್ತಿಯನ್ನು ನಾವು ಪ್ರಶಂಸಿಸುತ್ತೇವೆ.'
+  },
+  "Your contributions help keep these stories alive for future generations.": {
+    en: "Your contributions help keep these stories alive for future generations.",
+    kn: 'ನಿಮ್ಮ ಕೊಡುಗೆಗಳು ಈ ಕಥೆಗಳನ್ನು ಮುಂದಿನ ಪೀಳಿಗೆಗೆ ಜೀವಂತವಾಗಿಡಲು ಸಹಾಯ ಮಾಡುತ್ತವೆ.'
   },
   'Search temples...': {
     en: 'Search temples...',
@@ -190,6 +346,10 @@ export const uiTranslations: UITranslations = {
     en: 'Play 60s Story',
     kn: '60 ಸೆಕೆಂಡ್ ಕಥೆ ಕೇಳಿ'
   },
+  'Play Full Story': {
+    en: 'Play Full Story',
+    kn: 'ಇತಿಹಾಸ'
+  },
   'Stop Story': {
     en: 'Stop Story',
     kn: 'ಕಥೆ ನಿಲ್ಲಿಸಿ'
@@ -339,10 +499,6 @@ export const uiTranslations: UITranslations = {
   'Special': {
     en: 'Special',
     kn: 'ವಿಶೇಷ'
-  },
-  'Contact': {
-    en: 'Contact',
-    kn: 'ಸಂಪರ್ಕ'
   },
   'Time': {
     en: 'Time',

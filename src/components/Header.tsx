@@ -21,36 +21,41 @@ const Header = () => {
 
   const navLinks = [
     { name: "Home", path: "/" },
+    { name: "Get Educated", path: "/education" },
     { name: "Temples", path: "/#temples" },
     { name: "Calendar", path: "/calendar" },
-    { name: "Explore", path: "/#explore" },
-    { name: "Contact", path: "/#contact" },
+    { name: "Book Travel", path: "/book-travel" },
+    { name: "Add Temple Listing", path: "/add-temple" },
   ];
 
   const isActive = (path: string) => {
     if (path === "/") return location.pathname === "/";
-    return location.hash === path.replace("/", "");
+    // Check if it's a full route (starts with /) or a hash link
+    if (path.startsWith("/#")) {
+      return location.hash === path.replace("/", "");
+    }
+    return location.pathname === path;
   };
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-background/95 backdrop-blur-md shadow-soft"
-          : "bg-transparent"
+          ? "bg-background/98 backdrop-blur-md shadow-sm"
+          : "bg-black/40 backdrop-blur-sm"
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 group">
-            <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center group-hover:glow-shadow transition-smooth">
-              <span className="text-primary-foreground font-serif text-xl font-bold">
+          <Link to="/" className="flex items-center space-x-3 group">
+            <div className="w-11 h-11 bg-primary rounded-full flex items-center justify-center shadow-lg">
+              <span className="text-primary-foreground font-serif text-2xl font-bold">
                 ॐ
               </span>
             </div>
-            <span className="font-serif text-2xl font-bold text-foreground">
-              {translate("TempleVerse")}
+            <span className={`font-serif text-2xl font-bold tracking-tight ${isScrolled ? 'text-foreground' : 'text-white'}`}>
+              TempleVerse
             </span>
           </Link>
 
@@ -62,8 +67,10 @@ const Header = () => {
                 to={link.path}
                 className={`px-4 py-2 rounded-lg transition-smooth font-medium ${
                   isActive(link.path)
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    ? "bg-primary/20 text-primary"
+                    : isScrolled 
+                      ? "text-muted-foreground hover:text-foreground hover:bg-muted"
+                      : "text-white/90 hover:text-white hover:bg-white/10"
                 }`}
               >
                 {translate(link.name)}
@@ -73,13 +80,17 @@ const Header = () => {
 
           {/* Search and Language Toggle (Desktop) */}
           <div className="hidden md:flex items-center space-x-2">
-            <Button variant="ghost" size="icon" className="hover:bg-primary/10">
-              <Search className="h-5 w-5 text-muted-foreground" />
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className={`hover:bg-primary/10 ${isScrolled ? '' : 'text-white hover:bg-white/10'}`}
+            >
+              <Search className="h-5 w-5" />
             </Button>
             <Button
               variant="ghost"
               size="sm"
-              className="flex items-center gap-2 hover:bg-primary/10"
+              className={`flex items-center gap-2 hover:bg-primary/10 ${isScrolled ? '' : 'text-white hover:bg-white/10'}`}
               onClick={toggleLanguage}
             >
               <Languages className="h-4 w-4" />
@@ -90,7 +101,11 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-foreground hover:bg-muted rounded-lg transition-smooth"
+            className={`md:hidden p-2 rounded-lg transition-smooth ${
+              isScrolled 
+                ? 'text-foreground hover:bg-muted' 
+                : 'text-white hover:bg-white/10'
+            }`}
           >
             {isMobileMenuOpen ? (
               <X className="h-6 w-6" />

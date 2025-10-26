@@ -2,7 +2,6 @@ import { useState, useMemo } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import ExploreSection from "@/components/ExploreSection";
-import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import MapView from "@/components/MapView";
 import TempleListView from "@/components/TempleListView";
@@ -29,14 +28,14 @@ const Index = () => {
       <Hero />
 
       {/* Map + List Split View Section */}
-      <section className="py-8" id="temples">
+      <section className="py-16" id="temples">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-3">
-              Sacred Temples
+          <div className="text-center mb-12">
+            <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
+              Explore Temples
             </h2>
-            <p className="text-base text-muted-foreground max-w-2xl mx-auto">
-              Explore the divine heritage of coastal Karnataka
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Interactive map and complete listing of temples across the region
             </p>
           </div>
 
@@ -86,7 +85,6 @@ const Index = () => {
       </section>
 
       <ExploreSection />
-      <ContactSection />
       <Footer />
 
       {/* Temple Detail Panel */}
