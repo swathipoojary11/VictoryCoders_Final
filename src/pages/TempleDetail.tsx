@@ -1,5 +1,8 @@
 import { useParams, Link } from "react-router-dom";
+import { useMemo } from "react";
 import { temples } from "@/data/temples";
+import { templeDescriptions } from "@/data/translations/templeDescriptions";
+import { useLanguage } from "@/context/LanguageContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -20,6 +23,25 @@ import { toast } from "sonner";
 const TempleDetail = () => {
   const { id } = useParams();
   const temple = temples.find((t) => t.id === id);
+  const { language, translate } = useLanguage();
+
+  // Memoize the full story to prevent recalculation on every render
+  const fullStory = useMemo(() => {
+    if (!temple) return '';
+    
+    // Map temple ID to description key
+    let baseId = temple.id.replace('-temple', '').replace('-shri-', '').replace('shri-', '');
+    const firstWord = baseId.split('-')[0];
+    const descriptionKey = `temple.${firstWord}`;
+    const fullStoryKey = `${descriptionKey}.full`;
+    
+    if (templeDescriptions[fullStoryKey]) {
+      const story = templeDescriptions[fullStoryKey][language];
+      if (story) return story;
+    }
+    
+    return temple.description;
+  }, [temple, language]);
 
   if (!temple) {
     return (
@@ -141,8 +163,8 @@ const TempleDetail = () => {
                   <h2 className="font-serif text-2xl font-bold text-foreground mb-4">
                     About This Temple
                   </h2>
-                  <p className="text-muted-foreground leading-relaxed text-lg">
-                    {temple.description}
+                  <p className="text-muted-foreground leading-relaxed text-lg whitespace-pre-line">
+                    {fullStory}
                   </p>
                 </div>
 
@@ -155,20 +177,20 @@ const TempleDetail = () => {
                       <p className="text-sm font-medium text-muted-foreground mb-1">
                         Primary Deity
                       </p>
-                      <p className="text-foreground font-medium">{temple.deity}</p>
+                      <p className="text-foreground font-medium">{translate(temple.deity)}</p>
                     </div>
                     <div>
                       <p className="text-sm font-medium text-muted-foreground mb-1">
                         Region
                       </p>
-                      <p className="text-foreground font-medium">{temple.region}</p>
+                      <p className="text-foreground font-medium">{translate(temple.region)}</p>
                     </div>
                     <div>
                       <p className="text-sm font-medium text-muted-foreground mb-1">
                         Location
                       </p>
                       <p className="text-foreground font-medium">
-                        {temple.location}
+                        {translate(temple.location)}
                       </p>
                     </div>
                   </div>

@@ -1,4 +1,4 @@
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      import { useEffect, useState } from 'react';
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      import { useEffect, useState, useCallback, useMemo } from 'react';
 import { Locate } from 'lucide-react';
 import { Temple } from '@/data/temples';
 import { Button } from './ui/button';
@@ -25,9 +25,8 @@ function FlyToLocation({ coords }: { coords: [number, number] }) {
 const MapView = ({ temples, selectedTemple, onTempleSelect }: MapViewProps) => {
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
 
-  // Generate marker coordinates from temple location
-  const getTempleCoords = (temple: Temple): [number, number] => {
-    // For demo, use approximate coordinates based on region
+  // Generate marker coordinates from temple location - memoized
+  const getTempleCoords = useCallback((temple: Temple): [number, number] => {
     const baseCoords: Record<string, [number, number]> = {
       Mangalore: [74.856, 12.9141],
       Udupi: [74.7421, 13.3409],
@@ -35,13 +34,12 @@ const MapView = ({ temples, selectedTemple, onTempleSelect }: MapViewProps) => {
     };
 
     const base = baseCoords[temple.region] || [74.856, 13.0827];
-    // Add small random offset for each temple
     const offset = (parseInt(temple.id.slice(-2), 36) / 1000);
     return [base[0] + (offset - 0.05), base[1] + (offset - 0.05)];
-  };
+  }, []);
 
-  // Custom marker icon
-  const getMarkerIcon = (isSelected: boolean) => {
+  // Custom marker icon - memoized
+  const getMarkerIcon = useCallback((isSelected: boolean) => {
     return L.divIcon({
       className: styles.customMarker,
       html: `
@@ -55,9 +53,9 @@ const MapView = ({ temples, selectedTemple, onTempleSelect }: MapViewProps) => {
       iconSize: [32, 32],
       iconAnchor: [16, 32],
     });
-  };
+  }, []);
 
-  const handleLocateMe = () => {
+  const handleLocateMe = useCallback(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -69,7 +67,7 @@ const MapView = ({ temples, selectedTemple, onTempleSelect }: MapViewProps) => {
         }
       );
     }
-  };
+  }, []);
 
   return (
     <div className={styles.mapContainer}>

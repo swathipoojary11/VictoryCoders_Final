@@ -1,3 +1,30 @@
+export interface OpeningHours {
+  day: string;
+  hours: string;
+  isOpen?: boolean;
+}
+
+export interface FAQ {
+  question: string;
+  answer: string;
+}
+
+export interface Event {
+  id: string;
+  title: string;
+  date: string;
+  time: string;
+  type: "festival" | "pooja" | "special";
+  description: string;
+  contact?: string;
+}
+
+export interface TravelInfo {
+  fromJubileeBusStation: string;
+  fromShamirpet: string;
+  fromORRExit: string;
+}
+
 export interface Temple {
   id: string;
   name: string;
@@ -7,6 +34,10 @@ export interface Temple {
   shortDescription: string;
   image: string;
   region: "Mangalore" | "Udupi" | "Kundapura";
+  openingHours: OpeningHours[];
+  faqs: FAQ[];
+  events: Event[];
+  travelInfo: TravelInfo;
 }
 
 export const temples: Temple[] = [
@@ -18,7 +49,54 @@ export const temples: Temple[] = [
     shortDescription: "The presiding deity of Mangalore",
     description: "Ancient temple dedicated to Goddess Mangaladevi, the city's namesake deity. Known for its historical significance and unique architectural style.",
     image: "/placeholder.svg",
-    region: "Mangalore"
+    region: "Mangalore",
+    openingHours: [
+      { day: "Monday", hours: "6:00 AM - 12:30 PM & 5:30 PM - 7:30 PM" },
+      { day: "Tuesday", hours: "6:00 AM - 12:30 PM & 5:30 PM - 7:30 PM" },
+      { day: "Wednesday", hours: "6:00 AM - 12:30 PM & 5:30 PM - 7:30 PM" },
+      { day: "Thursday", hours: "6:00 AM - 12:30 PM & 5:30 PM - 7:30 PM" },
+      { day: "Friday", hours: "6:00 AM - 12:30 PM & 5:30 PM - 7:30 PM" },
+      { day: "Saturday", hours: "6:00 AM - 12:30 PM & 5:30 PM - 7:30 PM", isOpen: true },
+      { day: "Sunday", hours: "6:00 AM - 12:00 PM & 1:00 PM - 7:30 PM" }
+    ],
+    faqs: [
+      {
+        question: "Do we have parking facility?",
+        answer: "Yes, we have a dedicated parking area that can accommodate up to 50 vehicles. Parking is free for devotees."
+      },
+      {
+        question: "What are the special poojas conducted?",
+        answer: "Daily poojas include Abhisheka, Archana, and Aarti. Special poojas are conducted during festivals like Navaratri and Deepavali."
+      },
+      {
+        question: "Is photography allowed inside the temple?",
+        answer: "Photography is allowed in the outer areas but not inside the sanctum sanctorum. Please respect the temple's sacred atmosphere."
+      }
+    ],
+    events: [
+      {
+        id: "navaratri-2024",
+        title: "Navaratri Festival",
+        date: "October 3-12, 2024",
+        time: "6:00 AM - 9:00 PM",
+        type: "festival",
+        description: "Nine days of special celebrations with cultural programs, traditional music, and grand processions.",
+        contact: "Temple Office: +91-824-2456789"
+      },
+      {
+        id: "daily-abhisheka",
+        title: "Daily Abhisheka",
+        date: "Daily",
+        time: "6:00 AM - 7:00 AM",
+        type: "pooja",
+        description: "Sacred bathing ritual of the deity with milk, honey, and holy water."
+      }
+    ],
+    travelInfo: {
+      fromJubileeBusStation: "18 Kms",
+      fromShamirpet: "8 Kms", 
+      fromORRExit: "22 Kms"
+    }
   },
   {
     id: "kadri-manjunatha-temple",

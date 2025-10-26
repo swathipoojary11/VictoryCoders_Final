@@ -59,7 +59,7 @@ const TempleCard = ({ temple, index }: TempleCardProps) => {
             >
               <Languages className="h-4 w-4" />
               <span className="text-xs font-medium">
-                {language === 'en' ? 'ಕನ್ನಡ' : 'EN'}
+                {language === 'en' ? 'ಕನ್ನಡ' : 'ಇಂಗ್ಲಿಷ್'}
               </span>
             </Button>
           </div>
@@ -69,8 +69,8 @@ const TempleCard = ({ temple, index }: TempleCardProps) => {
           </div>
         </div>
 
-        <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed mb-4">
-          {translate(temple.shortDescription)}
+        <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed mb-4">
+          {translate(`temple.${temple.id}.full`)}
         </p>
 
         <div>

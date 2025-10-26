@@ -48,6 +48,36 @@ export const uiTranslations: UITranslations = {
     en: 'Mangaladevi Temple',
     kn: 'ಮಂಗಳಾದೇವಿ ದೇವಾಲಯ'
   },
+
+  // Week Days
+  'Monday': {
+    en: 'Monday',
+    kn: 'ಸೋಮವಾರ'
+  },
+  'Tuesday': {
+    en: 'Tuesday',
+    kn: 'ಮಂಗಳವಾರ'
+  },
+  'Wednesday': {
+    en: 'Wednesday',
+    kn: 'ಬುಧವಾರ'
+  },
+  'Thursday': {
+    en: 'Thursday',
+    kn: 'ಗುರುವಾರ'
+  },
+  'Friday': {
+    en: 'Friday',
+    kn: 'ಶುಕ್ರವಾರ'
+  },
+  'Saturday': {
+    en: 'Saturday',
+    kn: 'ಶನಿವಾರ'
+  },
+  'Sunday': {
+    en: 'Sunday',
+    kn: 'ಭಾನುವಾರ'
+  },
   'Kadri Manjunatha Temple': {
     en: 'Kadri Manjunatha Temple',
     kn: 'ಕದ್ರಿ ಮಂಜುನಾಥ ದೇವಾಲಯ'
@@ -223,5 +253,111 @@ export const uiTranslations: UITranslations = {
   'River-island temple of Goddess Durga, known for Yakshagana performances and serene location on the Nandini river.': {
     en: 'River-island temple of Goddess Durga, known for Yakshagana performances and serene location on the Nandini river.',
     kn: 'ನಂದಿನಿ ನದಿಯ ಮೇಲಿರುವ ದುರ್ಗಾ ದೇವಿಯ ದ್ವೀಪ ದೇವಾಲಯ, ಯಕ್ಷಗಾನ ಪ್ರದರ್ಶನಗಳಿಗೆ ಮತ್ತು ಪ್ರಶಾಂತ ಸ್ಥಳಕ್ಕೆ ಹೆಸರುವಾಸಿಯಾಗಿದೆ.'
+  },
+
+  // New Enhanced Sections
+  'Travel Guide': {
+    en: 'Travel Guide',
+    kn: 'ಪ್ರಯಾಣ ಮಾರ್ಗದರ್ಶಿ'
+  },
+  'FAQ\'s': {
+    en: 'FAQ\'s',
+    kn: 'ಪ್ರಶ್ನೆಗಳು'
+  },
+  'Events & Calendar': {
+    en: 'Events & Calendar',
+    kn: 'ಕಾರ್ಯಕ್ರಮಗಳು & ಕ್ಯಾಲೆಂಡರ್'
+  },
+  'Open now': {
+    en: 'Open now',
+    kn: 'ಈಗ ತೆರೆದಿದೆ'
+  },
+  'Do we have parking facility?': {
+    en: 'Do we have parking facility?',
+    kn: 'ನಮಗೆ ಪಾರ್ಕಿಂಗ್ ಸೌಲಭ್ಯ ಇದೆಯೇ?'
+  },
+  'What are the special poojas conducted?': {
+    en: 'What are the special poojas conducted?',
+    kn: 'ಯಾವ ವಿಶೇಷ ಪೂಜೆಗಳು ನಡೆಸಲಾಗುತ್ತವೆ?'
+  },
+  'Is photography allowed inside the temple?': {
+    en: 'Is photography allowed inside the temple?',
+    kn: 'ದೇವಾಲಯದ ಒಳಗೆ ಛಾಯಾಗ್ರಹಣ ಅನುಮತಿಯಿದೆಯೇ?'
+  },
+  'Yes, we have a dedicated parking area that can accommodate up to 50 vehicles. Parking is free for devotees.': {
+    en: 'Yes, we have a dedicated parking area that can accommodate up to 50 vehicles. Parking is free for devotees.',
+    kn: 'ಹೌದು, ನಮಗೆ 50 ವಾಹನಗಳನ್ನು ಸಾಕುವ ಪ್ರತ್ಯೇಕ ಪಾರ್ಕಿಂಗ್ ಪ್ರದೇಶವಿದೆ. ಭಕ್ತರಿಗೆ ಪಾರ್ಕಿಂಗ್ ಉಚಿತ.'
+  },
+  'Daily poojas include Abhisheka, Archana, and Aarti. Special poojas are conducted during festivals like Navaratri and Deepavali.': {
+    en: 'Daily poojas include Abhisheka, Archana, and Aarti. Special poojas are conducted during festivals like Navaratri and Deepavali.',
+    kn: 'ದೈನಂದಿನ ಪೂಜೆಗಳಲ್ಲಿ ಅಭಿಷೇಕ, ಅರ್ಚನೆ ಮತ್ತು ಆರತಿ ಸೇರಿವೆ. ನವರಾತ್ರಿ ಮತ್ತು ದೀಪಾವಳಿಯಂತಹ ಹಬ್ಬಗಳಲ್ಲಿ ವಿಶೇಷ ಪೂಜೆಗಳು ನಡೆಸಲಾಗುತ್ತವೆ.'
+  },
+  'Photography is allowed in the outer areas but not inside the sanctum sanctorum. Please respect the temple\'s sacred atmosphere.': {
+    en: 'Photography is allowed in the outer areas but not inside the sanctum sanctorum. Please respect the temple\'s sacred atmosphere.',
+    kn: 'ಹೊರ ಪ್ರದೇಶಗಳಲ್ಲಿ ಛಾಯಾಗ್ರಹಣ ಅನುಮತಿಯಿದೆ ಆದರೆ ಗರ್ಭಗುಡಿಯ ಒಳಗೆ ಅಲ್ಲ. ದಯವಿಟ್ಟು ದೇವಾಲಯದ ಪವಿತ್ರ ವಾತಾವರಣವನ್ನು ಗೌರವಿಸಿ.'
+  },
+  'Navaratri Festival': {
+    en: 'Navaratri Festival',
+    kn: 'ನವರಾತ್ರಿ ಹಬ್ಬ'
+  },
+  'Daily Abhisheka': {
+    en: 'Daily Abhisheka',
+    kn: 'ದೈನಂದಿನ ಅಭಿಷೇಕ'
+  },
+  'Nine days of special celebrations with cultural programs, traditional music, and grand processions.': {
+    en: 'Nine days of special celebrations with cultural programs, traditional music, and grand processions.',
+    kn: 'ಸಾಂಸ್ಕೃತಿಕ ಕಾರ್ಯಕ್ರಮಗಳು, ಸಾಂಪ್ರದಾಯಿಕ ಸಂಗೀತ ಮತ್ತು ಭವ್ಯ ಶೋಭಾಯಾತ್ರೆಗಳೊಂದಿಗೆ ಒಂಬತ್ತು ದಿನಗಳ ವಿಶೇಷ ಆಚರಣೆಗಳು.'
+  },
+  'Sacred bathing ritual of the deity with milk, honey, and holy water.': {
+    en: 'Sacred bathing ritual of the deity with milk, honey, and holy water.',
+    kn: 'ಹಾಲು, ಜೇನುತುಪ್ಪ ಮತ್ತು ಪವಿತ್ರ ನೀರಿನೊಂದಿಗೆ ದೇವರ ಪವಿತ್ರ ಸ್ನಾನ ಆಚರಣೆ.'
+  },
+  'This temple is around 18 Kms from Jubilee Bus Station, 8 Kms from Shamirpet, 22 Kms from ORR Exit.': {
+    en: 'This temple is around 18 Kms from Jubilee Bus Station, 8 Kms from Shamirpet, 22 Kms from ORR Exit.',
+    kn: 'ಈ ದೇವಾಲಯ ಜೂಬ್ಲೀ ಬಸ್ ಸ್ಟೇಷನ್ ನಿಂದ 18 ಕಿ.ಮೀ, ಷಾಮಿರ್ಪೇಟ ನಿಂದ 8 ಕಿ.ಮೀ, ORR ಎಗ್ಜಿಟ್ ನಿಂದ 22 ಕಿ.ಮೀ ದೂರದಲ್ಲಿದೆ.'
+  },
+  'Add to My Calendar': {
+    en: 'Add to My Calendar',
+    kn: 'ನನ್ನ ಕ್ಯಾಲೆಂಡರ್‌ಗೆ ಸೇರಿಸಿ'
+  },
+  'Download ICS': {
+    en: 'Download ICS',
+    kn: 'ICS ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ'
+  },
+  'Set Reminder': {
+    en: 'Set Reminder',
+    kn: 'ಜ್ಞಾಪಕ ಸೆಟ್ ಮಾಡಿ'
+  },
+  'Festival': {
+    en: 'Festival',
+    kn: 'ಹಬ್ಬ'
+  },
+  'Pooja': {
+    en: 'Pooja',
+    kn: 'ಪೂಜೆ'
+  },
+  'Special': {
+    en: 'Special',
+    kn: 'ವಿಶೇಷ'
+  },
+  'Contact': {
+    en: 'Contact',
+    kn: 'ಸಂಪರ್ಕ'
+  },
+  'Time': {
+    en: 'Time',
+    kn: 'ಸಮಯ'
+  },
+  'Date': {
+    en: 'Date',
+    kn: 'ದಿನಾಂಕ'
+  },
+  'Type': {
+    en: 'Type',
+    kn: 'ಪ್ರಕಾರ'
+  },
+  'Description': {
+    en: 'Description',
+    kn: 'ವಿವರಣೆ'
   }
 };

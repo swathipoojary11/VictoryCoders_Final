@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import FestivalsSection from "@/components/FestivalsSection";
 import ExploreSection from "@/components/ExploreSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
@@ -17,11 +16,12 @@ const Index = () => {
   const [selectedTemple, setSelectedTemple] = useState<Temple | null>(null);
   const [viewMode, setViewMode] = useState<"map" | "list">("map");
 
-  const nearbyTemples = selectedTemple
-    ? temples
-        .filter((t) => t.region === selectedTemple.region && t.id !== selectedTemple.id)
-        .slice(0, 3)
-    : [];
+  const nearbyTemples = useMemo(() => {
+    if (!selectedTemple) return [];
+    return temples
+      .filter((t) => t.region === selectedTemple.region && t.id !== selectedTemple.id)
+      .slice(0, 3);
+  }, [selectedTemple]);
 
   return (
     <div className="min-h-screen">
@@ -85,7 +85,6 @@ const Index = () => {
         </div>
       </section>
 
-      <FestivalsSection />
       <ExploreSection />
       <ContactSection />
       <Footer />

@@ -1,8 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { Temple } from "@/data/temples";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { useLanguage } from "@/context/LanguageContext";
+import { templeDescriptions } from "@/data/translations/templeDescriptions";
+
+// Declare ResponsiveVoice for TypeScript
+declare global {
+  interface Window {
+    responsiveVoice: {
+      speak: (text: string, voice: string, options: any) => void;
+    };
+  }
+}
 import {
   X,
   Volume2,
@@ -16,6 +26,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Languages,
+  ChevronDown
 } from "lucide-react";
 import { toast } from "sonner";
 import templeImage1 from "@/assets/temple-card-1.jpg";
@@ -33,6 +44,26 @@ const TempleDetailPanel = ({ temple, onClose, nearbyTemples = [] }: TempleDetail
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [speechSupported, setSpeechSupported] = useState(false);
   const { translate, language, toggleLanguage } = useLanguage();
+
+  // Memoize the full story to prevent recalculation on every render
+  const fullStory = useMemo(() => {
+    if (!temple) return '';
+    
+    // Map temple ID to description key
+    let baseId = temple.id.replace('-temple', '').replace('-shri-', '').replace('shri-', '');
+    const firstWord = baseId.split('-')[0];
+    const descriptionKey = `temple.${firstWord}`;
+    const fullStoryKey = `${descriptionKey}.full`;
+    
+    // Try to get the full story from templeDescriptions
+    if (templeDescriptions[fullStoryKey]) {
+      const story = templeDescriptions[fullStoryKey][language];
+      if (story) return story;
+    }
+    
+    // Fallback to the temple description if no full story is available
+    return temple.description;
+  }, [temple, language]);
 
   useEffect(() => {
     setSpeechSupported('speechSynthesis' in window);
@@ -68,7 +99,7 @@ const TempleDetailPanel = ({ temple, onClose, nearbyTemples = [] }: TempleDetail
   const images = [templeImage1, templeImage2];
   const currentImage = images[currentImageIndex];
 
-  const handleTTS = () => {
+  const handleTTS = async () => {
     if (!speechSupported) {
       toast.error(translate("Text-to-speech is not supported in your browser"));
       return;
@@ -80,18 +111,146 @@ const TempleDetailPanel = ({ temple, onClose, nearbyTemples = [] }: TempleDetail
       return;
     }
 
-    const utterance = new SpeechSynthesisUtterance(
-      language === 'kn' 
-        ? `${temple.name}. ${temple.description}. ಈ ದೇವಾಲಯವು ${temple.location} ನಲ್ಲಿ ನೆಲೆಸಿದೆ.`
-        : `${temple.name}. ${temple.description}. This temple is located in ${temple.location}.`
-    );
-    utterance.rate = 0.9;
-    utterance.lang = language === 'kn' ? 'kn-IN' : 'en-US';
-    utterance.onend = () => setIsSpeaking(false);
+    // Debug: Log available voices
+    const voices = window.speechSynthesis.getVoices();
+    console.log("Available voices:", voices.map(v => `${v.name} (${v.lang})`));
+    console.log("Kannada voices:", voices.filter(v => v.lang.includes('kn')));
+    console.log("Hindi voices:", voices.filter(v => v.lang.includes('hi')));
+    console.log("Indian voices:", voices.filter(v => v.lang.includes('IN')));
+
+    // Get the text to speak in the current language
+    const textToSpeak = language === 'kn' 
+      ? `${temple.name}. ${fullStory}. ಈ ದೇವಾಲಯವು ${temple.location} ನಲ್ಲಿ ನೆಲೆಸಿದೆ.`
+      : `${temple.name}. ${fullStory}. This temple is located in ${temple.location}.`;
     
-    window.speechSynthesis.speak(utterance);
     setIsSpeaking(true);
-    toast.success(translate("Playing temple story"));
+    
+    if (language === 'kn') {
+      // CRITICAL: Use working Kannada TTS with proper implementation
+      try {
+        // Method 1: Google Translate TTS with proper headers
+        const encodedText = encodeURIComponent(textToSpeak);
+        const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=kn&client=tw-ob&q=${encodedText}`;
+        
+        // Create audio element with proper settings
+        const audio = new Audio();
+        audio.crossOrigin = 'anonymous';
+        
+        // Set up event handlers
+        audio.onloadstart = () => {
+          toast.info("🎤 Loading Kannada TTS...");
+        };
+        
+        audio.oncanplay = () => {
+          toast.success("✅ Kannada TTS ready!");
+        };
+        
+        audio.onended = () => {
+          setIsSpeaking(false);
+          toast.success("✅ Kannada story completed!");
+        };
+        
+        audio.onerror = (e) => {
+          console.error("Kannada TTS error:", e);
+          toast.error("❌ Kannada TTS failed, trying alternative...");
+          tryAlternativeKannadaTTS();
+        };
+        
+        // Try to play the audio
+        audio.src = ttsUrl;
+        await audio.play();
+        
+      } catch (error) {
+        console.error("Primary Kannada TTS failed:", error);
+        tryAlternativeKannadaTTS();
+      }
+      
+      // Alternative Kannada TTS methods
+      function tryAlternativeKannadaTTS() {
+        const encodedText = encodeURIComponent(textToSpeak);
+        
+        // Try different Google TTS endpoints
+        const alternativeUrls = [
+          `https://translate.google.com/translate_tts?ie=UTF-8&tl=kn&client=webapp&q=${encodedText}`,
+          `https://translate.google.com/translate_tts?ie=UTF-8&tl=kn&client=android&q=${encodedText}`,
+          `https://translate.google.com/translate_tts?ie=UTF-8&tl=kn&client=chrome&q=${encodedText}`
+        ];
+        
+        let urlIndex = 0;
+        
+        function tryNextUrl() {
+          if (urlIndex >= alternativeUrls.length) {
+            // All URLs failed, use browser TTS with Hindi
+            useHindiBrowserTTS();
+            return;
+          }
+          
+          const audio = new Audio();
+          audio.crossOrigin = 'anonymous';
+          audio.src = alternativeUrls[urlIndex];
+          
+          audio.onended = () => {
+            setIsSpeaking(false);
+            toast.success(`✅ Kannada TTS working with alternative ${urlIndex + 1}`);
+          };
+          
+          audio.onerror = () => {
+            console.log(`Alternative ${urlIndex + 1} failed, trying next...`);
+            urlIndex++;
+            tryNextUrl();
+          };
+          
+          audio.play().catch(() => {
+            console.log(`Alternative ${urlIndex + 1} play failed, trying next...`);
+            urlIndex++;
+            tryNextUrl();
+          });
+          
+          toast.info(`🔄 Trying Kannada TTS alternative ${urlIndex + 1}...`);
+        }
+        
+        tryNextUrl();
+      }
+      
+      // Browser TTS with Hindi (closest to Kannada)
+      function useHindiBrowserTTS() {
+        const utterance = new SpeechSynthesisUtterance(textToSpeak);
+        utterance.rate = 0.5;
+        utterance.pitch = 1.0;
+        utterance.volume = 1.0;
+        utterance.lang = 'hi-IN';
+        
+        // Find Hindi voice
+        const voices = window.speechSynthesis.getVoices();
+        const hindiVoice = voices.find(v => v.lang.includes('hi'));
+        
+        if (hindiVoice) {
+          utterance.voice = hindiVoice;
+          toast.info("🔄 Using Hindi voice for Kannada text");
+        } else {
+          toast.warning("⚠️ No Hindi voice found, using default");
+        }
+        
+        utterance.onend = () => setIsSpeaking(false);
+        utterance.onerror = () => {
+          toast.error("❌ All TTS methods failed");
+          setIsSpeaking(false);
+        };
+        
+        window.speechSynthesis.speak(utterance);
+      }
+    } else {
+      // Use browser TTS for English
+      const utterance = new SpeechSynthesisUtterance(textToSpeak);
+      utterance.rate = 0.9;
+      utterance.pitch = 1.0;
+      utterance.volume = 1.0;
+      utterance.lang = 'en-US';
+      utterance.onend = () => setIsSpeaking(false);
+      
+      window.speechSynthesis.speak(utterance);
+      toast.success(translate("Playing temple story"));
+    }
   };
 
   const handleDirections = () => {
@@ -212,8 +371,14 @@ const TempleDetailPanel = ({ temple, onClose, nearbyTemples = [] }: TempleDetail
               aria-pressed={isSpeaking}
             >
               <Volume2 className="mr-2 h-4 w-4" />
-              {translate(isSpeaking ? "Stop Story" : "Play 60s Story")}
+              {translate(isSpeaking ? "Stop Story" : "Play Full Story")}
+              {language === 'kn' && (
+                <span className="ml-2 text-xs opacity-70">
+                  (ಕನ್ನಡ)
+                </span>
+              )}
             </Button>
+            
             
             <Button
               className="btn-directions"
@@ -233,7 +398,7 @@ const TempleDetailPanel = ({ temple, onClose, nearbyTemples = [] }: TempleDetail
               }}
             >
               <Languages className="mr-2 h-4 w-4" />
-              {language === 'en' ? 'ಕನ್ನಡ' : 'English'}
+              {language === 'en' ? 'ಕನ್ನಡ' : 'ಇಂಗ್ಲಿಷ್'}
             </Button>
             
             <Button
@@ -266,14 +431,14 @@ const TempleDetailPanel = ({ temple, onClose, nearbyTemples = [] }: TempleDetail
                 <Sparkles className="h-5 w-5 text-primary mt-0.5" />
                 <div>
                   <strong className="text-sm font-medium">{translate("Deity:")}</strong>
-                  <span className="text-sm text-muted-foreground ml-2">{temple.deity}</span>
+                  <span className="text-sm text-muted-foreground ml-2">{translate(temple.deity)}</span>
                 </div>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="h-5 w-5 text-primary mt-0.5" />
                 <div>
                   <strong className="text-sm font-medium">{translate("Location:")}</strong>
-                  <span className="text-sm text-muted-foreground ml-2">{temple.location}, {temple.region}</span>
+                  <span className="text-sm text-muted-foreground ml-2">{translate(temple.location)}, {translate(temple.region)}</span>
                 </div>
               </li>
             </ul>
@@ -283,10 +448,126 @@ const TempleDetailPanel = ({ temple, onClose, nearbyTemples = [] }: TempleDetail
             <h3 className="text-xl font-serif font-bold text-foreground mb-3">
               {translate("Story")}
             </h3>
-            <div className="dp-story text-foreground/90 leading-relaxed">
-              <p>{translate(temple.description)}</p>
+            <div className="dp-story text-foreground/90 leading-relaxed whitespace-pre-line">
+              <p>{fullStory}</p>
             </div>
           </div>
+
+          {/* Opening Hours Section */}
+          {temple.openingHours && (
+            <div>
+              <h3 className="text-xl font-serif font-bold text-foreground mb-3 flex items-center gap-2">
+                <Clock className="h-5 w-5 text-primary" />
+                {translate("Opening Hours")}
+              </h3>
+              <div className="space-y-2">
+                {temple.openingHours.map((schedule, index) => (
+                  <div key={index} className="flex justify-between items-center py-2 px-3 bg-muted/30 rounded-lg">
+                    <span className="font-medium text-foreground">{translate(schedule.day)}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-muted-foreground">{schedule.hours}</span>
+                      {schedule.isOpen && (
+                        <span className="text-green-600 text-sm font-medium bg-green-100 px-2 py-1 rounded">
+                          {translate("Open now")}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Travel Guide Section */}
+          {temple.travelInfo && (
+            <div>
+              <h3 className="text-xl font-serif font-bold text-foreground mb-3 flex items-center gap-2">
+                <Navigation className="h-5 w-5 text-primary" />
+                {translate("Travel Guide")}
+              </h3>
+              <div className="bg-muted/30 p-4 rounded-lg">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center">
+                    <span className="text-primary text-sm">🚌</span>
+                  </div>
+                  <span className="text-sm text-muted-foreground">
+                    {language === 'kn' 
+                      ? `ಈ ದೇವಾಲಯ ಜೂಬ್ಲೀ ಬಸ್ ಸ್ಟೇಷನ್ ನಿಂದ ${temple.travelInfo.fromJubileeBusStation}, ಷಾಮಿರ್ಪೇಟ ನಿಂದ ${temple.travelInfo.fromShamirpet}, ORR ಎಗ್ಜಿಟ್ ನಿಂದ ${temple.travelInfo.fromORRExit} ದೂರದಲ್ಲಿದೆ.`
+                      : `This temple is around ${temple.travelInfo.fromJubileeBusStation} from Jubilee Bus Station, ${temple.travelInfo.fromShamirpet} from Shamirpet, ${temple.travelInfo.fromORRExit} from ORR Exit.`
+                    }
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* FAQ Section */}
+          {temple.faqs && temple.faqs.length > 0 && (
+            <div>
+              <h3 className="text-xl font-serif font-bold text-foreground mb-3">
+                {translate("FAQ's")}
+              </h3>
+              <div className="space-y-3">
+                {temple.faqs.map((faq, index) => (
+                  <div key={index} className="border border-border rounded-lg">
+                    <div className="p-4">
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-medium text-foreground">{translate(faq.question)}</h4>
+                        <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                      </div>
+                      <div className="mt-3 text-muted-foreground">
+                        {translate(faq.answer)}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Events & Calendar Section */}
+          {temple.events && temple.events.length > 0 && (
+            <div>
+              <h3 className="text-xl font-serif font-bold text-foreground mb-3">
+                {translate("Events & Calendar")}
+              </h3>
+              <div className="space-y-4">
+                {temple.events.map((event) => (
+                  <div key={event.id} className="border border-border rounded-lg p-4 bg-muted/20">
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        <h4 className="font-semibold text-foreground">{event.title}</h4>
+                        <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground">
+                          <span className="flex items-center gap-1">
+                            <Calendar className="h-4 w-4" />
+                            {event.date}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Clock className="h-4 w-4" />
+                            {event.time}
+                          </span>
+                          <Badge variant="outline" className="text-xs">
+                            {translate(event.type)}
+                          </Badge>
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button size="sm" variant="outline" className="text-xs">
+                          {translate("Add to My Calendar")}
+                        </Button>
+                      </div>
+                    </div>
+                    <p className="text-muted-foreground text-sm mb-3">{event.description}</p>
+                    {event.contact && (
+                      <div className="text-xs text-muted-foreground">
+                        <strong>{translate("Contact")}:</strong> {event.contact}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div>
             <h3 className="text-xl font-serif font-bold text-foreground mb-3 flex items-center gap-2">

@@ -22,7 +22,7 @@ const Header = () => {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Temples", path: "/#temples" },
-    { name: "Festivals", path: "/#festivals" },
+    { name: "Calendar", path: "/calendar" },
     { name: "Explore", path: "/#explore" },
     { name: "Contact", path: "/#contact" },
   ];
@@ -66,7 +66,7 @@ const Header = () => {
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
               >
-                {link.name}
+                {translate(link.name)}
               </Link>
             ))}
           </nav>
