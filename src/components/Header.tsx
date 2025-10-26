@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Search } from "lucide-react";
+import { Menu, X, Search, Languages } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useLanguage } from "@/context/LanguageContext";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { language, toggleLanguage, translate } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,7 +50,7 @@ const Header = () => {
               </span>
             </div>
             <span className="font-serif text-2xl font-bold text-foreground">
-              TempleVerse
+              {translate("TempleVerse")}
             </span>
           </Link>
 
@@ -69,10 +71,19 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Search Icon (Desktop) */}
-          <div className="hidden md:block">
+          {/* Search and Language Toggle (Desktop) */}
+          <div className="hidden md:flex items-center space-x-2">
             <Button variant="ghost" size="icon" className="hover:bg-primary/10">
               <Search className="h-5 w-5 text-muted-foreground" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="flex items-center gap-2 hover:bg-primary/10"
+              onClick={toggleLanguage}
+            >
+              <Languages className="h-4 w-4" />
+              <span className="font-medium">{language === 'en' ? 'ENG' : 'ಕನ್ನಡ'}</span>
             </Button>
           </div>
 
@@ -105,18 +116,26 @@ const Header = () => {
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
               >
-                {link.name}
+                {translate(link.name)}
               </Link>
             ))}
-            <div className="pt-4">
+            <div className="pt-4 space-y-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   type="text"
-                  placeholder="Search temples..."
+                  placeholder={translate("Search temples...")}
                   className="pl-10"
                 />
               </div>
+              <Button
+                variant="outline"
+                className="w-full flex items-center justify-center gap-2"
+                onClick={toggleLanguage}
+              >
+                <Languages className="h-4 w-4" />
+                <span>{language === 'en' ? 'Switch to ಕನ್ನಡ' : 'Switch to English'}</span>
+              </Button>
             </div>
           </nav>
         </div>

@@ -1,0 +1,19 @@
+export const templeDescriptions = {
+  'temple.mangaladevi.short': {
+    en: 'Ancient temple dedicated to Goddess Mangaladevi, the city\'s namesake deity. Known for its historical significance and unique architectural style.',
+    kn: 'ನಗರಕ್ಕೆ ಹೆಸರು ನೀಡಿದ ಮಂಗಳಾದೇವಿ ದೇವಿಯ ಪುರಾತನ ದೇವಾಲಯ. ಇದರ ಐತಿಹಾಸಿಕ ಮಹತ್ವ ಮತ್ತು ವಿಶಿಷ್ಟ ವಾಸ್ತುಶಿಲ್ಪಕ್ಕೆ ಹೆಸರುವಾಸಿಯಾಗಿದೆ.'
+  },
+  'temple.mangaladevi.full': {
+    en: 'The Mangaladevi Temple has a rich history dating back to the 9th century. According to legend, the temple was established by Parashurama and later received patronage from Queen Premila of the Alupa dynasty. Named after Princess Mangale, a devout worshiper of Goddess Durga, the temple showcases a unique blend of Kerala and Vijayanagara architectural styles. The main shrine, housing the Mangaladevi idol in Shakti form, features intricate wooden carvings and traditional motifs. Though partially damaged during Tipu Sultan\'s reign, devoted followers restored it to its former glory. The temple is particularly vibrant during Navaratri, with its grand celebrations drawing thousands. The complex also includes shrines to Lord Ganesha and Veerabhadra.',
+    kn: 'ಮಂಗಳಾದೇವಿ ದೇವಾಲಯವು 9ನೇ ಶತಮಾನದಷ್ಟು ಹಿಂದಿನ ಸಮೃದ್ಧ ಇತಿಹಾಸವನ್ನು ಹೊಂದಿದೆ. ಐತಿಹ್ಯದ ಪ್ರಕಾರ, ದೇವಾಲಯವನ್ನು ಪರಶುರಾಮರು ಸ್ಥಾಪಿಸಿದರು ಮತ್ತು ನಂತರ ಅಳುಪ ರಾಜವಂಶದ ರಾಣಿ ಪ್ರೇಮಿಳೆಯಿಂದ ಪೋಷಣೆ ಪಡೆಯಿತು. ದುರ್ಗಾದೇವಿಯ ಭಕ್ತೆಯಾದ ರಾಜಕುಮಾರಿ ಮಂಗಳೆಯ ಹೆಸರಿನಿಂದ ನಾಮಕರಣ ಮಾಡಲ್ಪಟ್ಟ ಈ ದೇವಾಲಯವು ಕೇರಳ ಮತ್ತು ವಿಜಯನಗರ ವಾಸ್ತುಶೈಲಿಗಳ ಅನನ್ಯ ಮಿಶ್ರಣವನ್ನು ಪ್ರದರ್ಶಿಸುತ್ತದೆ. ಶಕ್ತಿ ರೂಪದಲ್ಲಿ ಮಂಗಳಾದೇವಿ ವಿಗ್ರಹವನ್ನು ಹೊಂದಿರುವ ಮುಖ್ಯ ಗರ್ಭಗುಡಿಯು ಸೂಕ್ಷ್ಮ ಮರದ ಕೆತ್ತನೆಗಳು ಮತ್ತು ಸಾಂಪ್ರದಾಯಿಕ ಅಲಂಕಾರಗಳನ್ನು ಹೊಂದಿದೆ. ಟಿಪ್ಪು ಸುಲ್ತಾನ್ ಆಳ್ವಿಕೆಯ ಸಮಯದಲ್ಲಿ ಭಾಗಶಃ ಹಾನಿಗೊಳಗಾದರೂ, ಭಕ್ತರು ಅದನ್ನು ಮೊದಲಿನ ವೈಭವಕ್ಕೆ ಮರುಸ್ಥಾಪಿಸಿದರು. ಸಾವಿರಾರು ಜನರನ್ನು ಆಕರ್ಷಿಸುವ ಭವ್ಯ ನವರಾತ್ರಿ ಆಚರಣೆಗಳೊಂದಿಗೆ ದೇವಾಲಯವು ವಿಶೇಷವಾಗಿ ಕಳಕಳಿಸುತ್ತದೆ. ಸಂಕೀರ್ಣದಲ್ಲಿ ಗಣಪತಿ ಮತ್ತು ವೀರಭದ್ರ ದೇವರ ಗುಡಿಗಳೂ ಇವೆ.'
+  },
+  'temple.kadri.short': {
+    en: 'Historic hill temple devoted to Lord Manjunatha (Shiva), featuring ancient bronze statues and panoramic views.',
+    kn: 'ಪ್ರಾಚೀನ ಕಂಚಿನ ವಿಗ್ರಹಗಳು ಮತ್ತು ಸುಂದರ ದೃಶ್ಯಗಳನ್ನು ಹೊಂದಿರುವ ಶ್ರೀ ಮಂಜುನಾಥ (ಶಿವ) ದೇವರ ಐತಿಹಾಸಿಕ ಬೆಟ್ಟದ ದೇವಾಲಯ.'
+  },
+  'temple.kadri.full': {
+    en: 'The Kadri Manjunatha Temple, dating back to 1068 CE, is one of the oldest temples in coastal Karnataka. The temple, nestled in the Kadri hills, houses the oldest known bronze statues in South India. The main deity, Manjunatha, is a form of Lord Shiva and is accompanied by unique bronze statues of Lokeshwara and other Buddhist-influenced deities, reflecting the region\'s rich religious history. The temple\'s architecture showcases a blend of Buddhist and Hindu styles, with its stone structure and intricate carvings. A natural spring within the temple complex is believed to have healing properties. The temple is also a significant center for Vajrayana Buddhism, and the caves in the surrounding hills were once used by Buddhist monks. The annual Thula Masa festivities and the temple\'s role in the traditional Yakshagana art form make it a cultural landmark.',
+    kn: 'ಕ್ರಿ.ಶ. 1068 ರಷ್ಟು ಹಳೆಯದಾದ ಕದ್ರಿ ಮಂಜುನಾಥ ದೇವಾಲಯವು ಕರಾವಳಿ ಕರ್ನಾಟಕದ ಅತ್ಯಂತ ಹಳೆಯ ದೇವಾಲಯಗಳಲ್ಲಿ ಒಂದಾಗಿದೆ. ಕದ್ರಿ ಬೆಟ್ಟಗಳಲ್ಲಿ ನೆಲೆಸಿರುವ ಈ ದೇವಾಲಯವು ದಕ್ಷಿಣ ಭಾರತದ ಅತ್ಯಂತ ಹಳೆಯ ಕಂಚಿನ ವಿಗ್ರಹಗಳನ್ನು ಹೊಂದಿದೆ. ಮುಖ್ಯ ದೇವರಾದ ಮಂಜುನಾಥನು ಶಿವನ ರೂಪವಾಗಿದ್ದು, ಲೋಕೇಶ್ವರ ಮತ್ತು ಇತರ ಬೌದ್ಧ ಪ್ರಭಾವಿತ ದೇವರುಗಳ ಅನನ್ಯ ಕಂಚಿನ ವಿಗ್ರಹಗಳು ಈ ಪ್ರದೇಶದ ಸಮೃದ್ಧ ಧಾರ್ಮಿಕ ಇತಿಹಾಸವನ್ನು ಪ್ರತಿಬಿಂಬಿಸುತ್ತವೆ. ದೇವಾಲಯದ ವಾಸ್ತುಶಿಲ್ಪವು ಬೌದ್ಧ ಮತ್ತು ಹಿಂದೂ ಶೈಲಿಗಳ ಮಿಶ್ರಣವನ್ನು ಪ್ರದರ್ಶಿಸುತ್ತದೆ, ಅದರ ಕಲ್ಲಿನ ರಚನೆ ಮತ್ತು ಸೂಕ್ಷ್ಮ ಕೆತ್ತನೆಗಳೊಂದಿಗೆ. ದೇವಾಲಯ ಸಂಕೀರ್ಣದಲ್ಲಿರುವ ನೈಸರ್ಗಿಕ ಬುಗ್ಗೆಯು ಔಷಧೀಯ ಗುಣಗಳನ್ನು ಹೊಂದಿದೆ ಎಂದು ನಂಬಲಾಗಿದೆ. ದೇವಾಲಯವು ವಜ್ರಯಾನ ಬೌದ್ಧ ಧರ್ಮದ ಪ್ರಮುಖ ಕೇಂದ್ರವಾಗಿದ್ದು, ಸುತ್ತಮುತ್ತಲಿನ ಬೆಟ್ಟಗಳಲ್ಲಿನ ಗುಹೆಗಳನ್ನು ಒಮ್ಮೆ ಬೌದ್ಧ ಭಿಕ್ಷುಗಳು ಬಳಸುತ್ತಿದ್ದರು. ವಾರ್ಷಿಕ ತುಳಾ ಮಾಸದ ಉತ್ಸವಗಳು ಮತ್ತು ಸಾಂಪ್ರದಾಯಿಕ ಯಕ್ಷಗಾನ ಕಲಾ ರೂಪದಲ್ಲಿ ದೇವಾಲಯದ ಪಾತ್ರವು ಅದನ್ನು ಸಾಂಸ್ಕೃತಿಕ ಗುರುತಾಗಿ ಮಾಡಿದೆ.'
+  }
+  // Add more temple descriptions here
+};

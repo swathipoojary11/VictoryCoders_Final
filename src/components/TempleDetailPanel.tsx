@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Temple } from "@/data/temples";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
+import { useLanguage } from "@/context/LanguageContext";
 import {
   X,
   Volume2,
@@ -14,6 +15,7 @@ import {
   Sparkles,
   ChevronLeft,
   ChevronRight,
+  Languages,
 } from "lucide-react";
 import { toast } from "sonner";
 import templeImage1 from "@/assets/temple-card-1.jpg";
@@ -30,6 +32,7 @@ const TempleDetailPanel = ({ temple, onClose, nearbyTemples = [] }: TempleDetail
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [speechSupported, setSpeechSupported] = useState(false);
+  const { translate, language, toggleLanguage } = useLanguage();
 
   useEffect(() => {
     setSpeechSupported('speechSynthesis' in window);
@@ -67,7 +70,7 @@ const TempleDetailPanel = ({ temple, onClose, nearbyTemples = [] }: TempleDetail
 
   const handleTTS = () => {
     if (!speechSupported) {
-      toast.error("Text-to-speech is not supported in your browser");
+      toast.error(translate("Text-to-speech is not supported in your browser"));
       return;
     }
 
@@ -78,25 +81,28 @@ const TempleDetailPanel = ({ temple, onClose, nearbyTemples = [] }: TempleDetail
     }
 
     const utterance = new SpeechSynthesisUtterance(
-      `${temple.name}. ${temple.description}. This temple is located in ${temple.location}.`
+      language === 'kn' 
+        ? `${temple.name}. ${temple.description}. ಈ ದೇವಾಲಯವು ${temple.location} ನಲ್ಲಿ ನೆಲೆಸಿದೆ.`
+        : `${temple.name}. ${temple.description}. This temple is located in ${temple.location}.`
     );
     utterance.rate = 0.9;
+    utterance.lang = language === 'kn' ? 'kn-IN' : 'en-US';
     utterance.onend = () => setIsSpeaking(false);
     
     window.speechSynthesis.speak(utterance);
     setIsSpeaking(true);
-    toast.success("Playing temple story");
+    toast.success(translate("Playing temple story"));
   };
 
   const handleDirections = () => {
-    toast.info("Opening directions in Google Maps...");
+    toast.info(translate("Opening directions in Google Maps..."));
     window.open(
       `https://www.google.com/maps/search/${encodeURIComponent(temple.name + " " + temple.location)}`,
       "_blank"
     );
   };
 
-  const handleShare = () => {
+    const handleShare = () => {
     if (navigator.share) {
       navigator.share({
         title: temple.name,
@@ -105,12 +111,10 @@ const TempleDetailPanel = ({ temple, onClose, nearbyTemples = [] }: TempleDetail
       });
     } else {
       navigator.clipboard.writeText(window.location.href);
-      toast.success("Link copied to clipboard!");
+      toast.success(translate("Link copied to clipboard!"));
     }
-  };
-
-  const handleSave = () => {
-    toast.success("Temple saved to your collection");
+  };  const handleSave = () => {
+    toast.success(translate("Temple saved to your collection"));
   };
 
   return (
@@ -132,15 +136,15 @@ const TempleDetailPanel = ({ temple, onClose, nearbyTemples = [] }: TempleDetail
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1">
               <h2 id={`title-${temple.id}`} className="text-2xl font-serif font-bold text-foreground">
-                {temple.name}
+                {translate(temple.name)}
               </h2>
               <div className="dp-sub flex items-center gap-2 mt-1 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4" />
-                <span>{temple.location} • {temple.region}</span>
+                <span>{translate(temple.location)} • {translate(temple.region)}</span>
               </div>
               <div className="flex gap-2 mt-2">
                 <Badge className="bg-primary text-primary-foreground">
-                  {temple.deity}
+                  {translate(temple.deity)}
                 </Badge>
               </div>
             </div>
@@ -202,13 +206,13 @@ const TempleDetailPanel = ({ temple, onClose, nearbyTemples = [] }: TempleDetail
           <div className="dp-actions flex flex-wrap gap-2 p-4 border-b border-border">
             <Button
               id={`tts-${temple.id}`}
-              className="btn-tts flex-1"
+              className="btn-tts"
               variant={isSpeaking ? "default" : "outline"}
               onClick={handleTTS}
               aria-pressed={isSpeaking}
             >
               <Volume2 className="mr-2 h-4 w-4" />
-              {isSpeaking ? "Stop Story" : "Play 60s Story"}
+              {translate(isSpeaking ? "Stop Story" : "Play 60s Story")}
             </Button>
             
             <Button
@@ -217,7 +221,19 @@ const TempleDetailPanel = ({ temple, onClose, nearbyTemples = [] }: TempleDetail
               onClick={handleDirections}
             >
               <Navigation className="mr-2 h-4 w-4" />
-              Directions
+              <span>{translate("Directions")}</span>
+            </Button>
+
+            <Button
+              className="btn-language"
+              variant="outline"
+              onClick={(e) => {
+                e.preventDefault();
+                toggleLanguage();
+              }}
+            >
+              <Languages className="mr-2 h-4 w-4" />
+              {language === 'en' ? 'ಕನ್ನಡ' : 'English'}
             </Button>
             
             <Button
@@ -243,20 +259,20 @@ const TempleDetailPanel = ({ temple, onClose, nearbyTemples = [] }: TempleDetail
         <section className="dp-content p-6 space-y-6">
           <div>
             <h3 className="text-xl font-serif font-bold text-foreground mb-3">
-              Quick Facts
+              {translate("Quick Facts")}
             </h3>
             <ul className="dp-facts space-y-2">
               <li className="flex items-start gap-2">
                 <Sparkles className="h-5 w-5 text-primary mt-0.5" />
                 <div>
-                  <strong className="text-sm font-medium">Primary Deity:</strong>
+                  <strong className="text-sm font-medium">{translate("Deity:")}</strong>
                   <span className="text-sm text-muted-foreground ml-2">{temple.deity}</span>
                 </div>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="h-5 w-5 text-primary mt-0.5" />
                 <div>
-                  <strong className="text-sm font-medium">Location:</strong>
+                  <strong className="text-sm font-medium">{translate("Location:")}</strong>
                   <span className="text-sm text-muted-foreground ml-2">{temple.location}, {temple.region}</span>
                 </div>
               </li>
@@ -265,43 +281,42 @@ const TempleDetailPanel = ({ temple, onClose, nearbyTemples = [] }: TempleDetail
 
           <div>
             <h3 className="text-xl font-serif font-bold text-foreground mb-3">
-              Story
+              {translate("Story")}
             </h3>
             <div className="dp-story text-foreground/90 leading-relaxed">
-              <p>{temple.description}</p>
+              <p>{translate(temple.description)}</p>
             </div>
           </div>
 
           <div>
             <h3 className="text-xl font-serif font-bold text-foreground mb-3 flex items-center gap-2">
               <Calendar className="h-5 w-5 text-primary" />
-              Festivals & Rituals
+              {translate("Festivals & Rituals")}
             </h3>
             <p className="text-sm text-muted-foreground">
-              Festival information and special poojas for {temple.name} will be updated soon.
-              Visit the temple or contact local authorities for current schedules.
+              {translate("Festival information and special poojas for")} {temple.name} {translate("will be updated soon. Visit the temple or contact local authorities for current schedules.")}
             </p>
           </div>
 
           <div>
             <h3 className="text-xl font-serif font-bold text-foreground mb-3">
-              Visitor Info
+              {translate("Visitor Info")}
             </h3>
             <div className="space-y-2">
               <p className="text-sm">
                 <Clock className="inline h-4 w-4 mr-2 text-primary" />
-                <strong>Timings:</strong> <span className="text-muted-foreground">6:00 AM – 8:00 PM (typical)</span>
+                <strong>{translate("Timings:")}</strong> <span className="text-muted-foreground">6:00 AM – 8:00 PM ({translate("typical")})</span>
               </p>
               <p className="text-sm text-muted-foreground">
-                Please verify timings before visiting as they may vary on festival days.
+                {translate("Please verify timings before visiting as they may vary on festival days.")}
               </p>
             </div>
           </div>
 
-          {nearbyTemples.length > 0 && (
+              {nearbyTemples.length > 0 && (
             <div>
               <h3 className="text-xl font-serif font-bold text-foreground mb-3">
-                Nearby Temples
+                {translate("Nearby Temples in")} {temple.region}
               </h3>
               <div className="space-y-2">
                 {nearbyTemples.slice(0, 3).map((nearby) => (
@@ -320,7 +335,7 @@ const TempleDetailPanel = ({ temple, onClose, nearbyTemples = [] }: TempleDetail
 
           <div className="text-xs text-muted-foreground pt-4 border-t border-border">
             <p>
-              Source: Community contributions • Last updated: 2025-10-25
+              {translate("Source: Community contributions • Last updated:")} 2025-10-25
             </p>
           </div>
         </section>
