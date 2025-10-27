@@ -9,27 +9,27 @@ const EducationSection = () => {
   const videos = [
     {
       id: 1,
-      title: language === 'kn' ? 'ದೈನಂದಿನ ಪೂಜಾ ವಿಧಾನ' : 'Daily Pooja Rituals',
-      description: language === 'kn' ? 'ದೇವಾಲಯದಲ್ಲಿ ನಡೆಯುವ ದೈನಂದಿನ ಪೂಜಾ ವಿಧಾನ' : 'Daily temple worship rituals and procedures',
-      embedUrl: 'https://www.youtube.com/embed/jNQXAC9IVRw'
+      title: language === 'kn' ? 'ಕರಾವಳಿ ದೇವಾಲಯಗಳು' : 'Coastal Temples',
+      description: language === 'kn' ? 'ಕರ್ನಾಟಕದ ಕರಾವಳಿ ದೇವಾಲಯ ಪರಂಪರೆ' : 'Coastal Karnataka temple heritage',
+      embedUrl: 'https://www.youtube.com/embed/IuuUdv6HzGE'
     },
     {
       id: 2,
-      title: language === 'kn' ? 'ದೇವಾಲಯ ಹಬ್ಬಗಳು' : 'Temple Festivals',
-      description: language === 'kn' ? 'ತುಳುನಾಡಿನ ದೇವಾಲಯ ಹಬ್ಬಗಳು ಮತ್ತು ಸಂಭ್ರಮಗಳು' : 'Temple festivals and celebrations of Tulunadu',
-      embedUrl: 'https://www.youtube.com/embed/Me-URTKYP_I'
+      title: language === 'kn' ? 'ದೇವಾಲಯ ದರ್ಶನ' : 'Temple Darshan',
+      description: language === 'kn' ? 'ತುಳುನಾಡಿನ ದೇವಾಲಯ ದರ್ಶನ' : 'Temple visit and traditions of Tulunadu',
+      embedUrl: 'https://www.youtube.com/embed/GLliXEfR2BM'
     },
     {
       id: 3,
-      title: language === 'kn' ? 'ವಿಶೇಷ ಪೂಜೆಗಳು' : 'Special Ceremonies',
-      description: language === 'kn' ? 'ವಿಶೇಷ ಸಂದರ್ಭಗಳಲ್ಲಿ ನಡೆಯುವ ಪೂಜೆಗಳು' : 'Special ceremonial rituals and occasions',
-      embedUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
+      title: language === 'kn' ? 'ದೇವಾಲಯ ಸಂಪ್ರದಾಯಗಳು' : 'Temple Traditions',
+      description: language === 'kn' ? 'ಪ್ರಾಚೀನ ದೇವಾಲಯ ಸಂಪ್ರದಾಯಗಳು ಮತ್ತು ಆಚರಣೆಗಳು' : 'Ancient temple traditions and practices',
+      embedUrl: 'https://www.youtube.com/embed/4bhg8L-RfCc'
     },
     {
       id: 4,
-      title: language === 'kn' ? 'ದೇವಾಲಯ ಸಂಪ್ರದಾಯಗಳು' : 'Temple Traditions',
-      description: language === 'kn' ? 'ಪ್ರಾಚೀನ ದೇವಾಲಯ ಸಂಪ್ರದಾಯಗಳು ಮತ್ತು ಆಚರಣೆಗಳು' : 'Ancient temple traditions and practices',
-      embedUrl: 'https://www.youtube.com/embed/EngW7tLk6R8'
+      title: language === 'kn' ? 'ಪವಿತ್ರ ಸ್ಥಳಗಳು' : 'Sacred Places',
+      description: language === 'kn' ? 'ತುಳುನಾಡಿನ ಪವಿತ್ರ ದೇವಾಲಯ ಸ್ಥಳಗಳು' : 'Sacred temple sites of Tulunadu',
+      embedUrl: 'https://www.youtube.com/embed/BwgsjiWiYII'
     }
   ];
 

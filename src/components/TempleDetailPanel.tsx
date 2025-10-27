@@ -111,13 +111,6 @@ const TempleDetailPanel = ({ temple, onClose, nearbyTemples = [] }: TempleDetail
       return;
     }
 
-    // Debug: Log available voices
-    const voices = window.speechSynthesis.getVoices();
-    console.log("Available voices:", voices.map(v => `${v.name} (${v.lang})`));
-    console.log("Kannada voices:", voices.filter(v => v.lang.includes('kn')));
-    console.log("Hindi voices:", voices.filter(v => v.lang.includes('hi')));
-    console.log("Indian voices:", voices.filter(v => v.lang.includes('IN')));
-
     // Get the text to speak in the current language
     const textToSpeak = language === 'kn' 
       ? `${temple.name}. ${fullStory}. ಈ ದೇವಾಲಯವು ${temple.location} ನಲ್ಲಿ ನೆಲೆಸಿದೆ.`
@@ -125,119 +118,82 @@ const TempleDetailPanel = ({ temple, onClose, nearbyTemples = [] }: TempleDetail
     
     setIsSpeaking(true);
     
+    // Wait for voices to load
+    const loadVoices = () => {
+      return new Promise<SpeechSynthesisVoice[]>((resolve) => {
+        let voices = window.speechSynthesis.getVoices();
+        if (voices.length > 0) {
+          resolve(voices);
+          return;
+        }
+        window.speechSynthesis.onvoiceschanged = () => {
+          voices = window.speechSynthesis.getVoices();
+          resolve(voices);
+        };
+      });
+    };
+
+    const voices = await loadVoices();
+    console.log("Available voices:", voices.map(v => `${v.name} (${v.lang})`));
+    
     if (language === 'kn') {
-      // CRITICAL: Use working Kannada TTS with proper implementation
-      try {
-        // Method 1: Google Translate TTS with proper headers
-        const encodedText = encodeURIComponent(textToSpeak);
-        const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=kn&client=tw-ob&q=${encodedText}`;
+      // Try to find Kannada voice (kn-IN)
+      const kannadaVoice = voices.find(v => v.lang.includes('kn') || v.lang.includes('Kannada'));
+      
+      if (kannadaVoice) {
+        // Use native Kannada voice if available
+        const utterance = new SpeechSynthesisUtterance(textToSpeak);
+        utterance.voice = kannadaVoice;
+        utterance.rate = 0.8;
+        utterance.pitch = 1.0;
+        utterance.volume = 1.0;
+        utterance.lang = 'kn-IN';
         
-        // Create audio element with proper settings
-        const audio = new Audio();
-        audio.crossOrigin = 'anonymous';
-        
-        // Set up event handlers
-        audio.onloadstart = () => {
-          toast.info("🎤 Loading Kannada TTS...");
-        };
-        
-        audio.oncanplay = () => {
-          toast.success("✅ Kannada TTS ready!");
-        };
-        
-        audio.onended = () => {
+        utterance.onend = () => {
           setIsSpeaking(false);
           toast.success("✅ Kannada story completed!");
         };
         
-        audio.onerror = (e) => {
+        utterance.onerror = (e) => {
           console.error("Kannada TTS error:", e);
-          toast.error("❌ Kannada TTS failed, trying alternative...");
-          tryAlternativeKannadaTTS();
-        };
-        
-        // Try to play the audio
-        audio.src = ttsUrl;
-        await audio.play();
-        
-      } catch (error) {
-        console.error("Primary Kannada TTS failed:", error);
-        tryAlternativeKannadaTTS();
-      }
-      
-      // Alternative Kannada TTS methods
-      function tryAlternativeKannadaTTS() {
-        const encodedText = encodeURIComponent(textToSpeak);
-        
-        // Try different Google TTS endpoints
-        const alternativeUrls = [
-          `https://translate.google.com/translate_tts?ie=UTF-8&tl=kn&client=webapp&q=${encodedText}`,
-          `https://translate.google.com/translate_tts?ie=UTF-8&tl=kn&client=android&q=${encodedText}`,
-          `https://translate.google.com/translate_tts?ie=UTF-8&tl=kn&client=chrome&q=${encodedText}`
-        ];
-        
-        let urlIndex = 0;
-        
-        function tryNextUrl() {
-          if (urlIndex >= alternativeUrls.length) {
-            // All URLs failed, use browser TTS with Hindi
-            useHindiBrowserTTS();
-            return;
-          }
-          
-          const audio = new Audio();
-          audio.crossOrigin = 'anonymous';
-          audio.src = alternativeUrls[urlIndex];
-          
-          audio.onended = () => {
-            setIsSpeaking(false);
-            toast.success(`✅ Kannada TTS working with alternative ${urlIndex + 1}`);
-          };
-          
-          audio.onerror = () => {
-            console.log(`Alternative ${urlIndex + 1} failed, trying next...`);
-            urlIndex++;
-            tryNextUrl();
-          };
-          
-          audio.play().catch(() => {
-            console.log(`Alternative ${urlIndex + 1} play failed, trying next...`);
-            urlIndex++;
-            tryNextUrl();
-          });
-          
-          toast.info(`🔄 Trying Kannada TTS alternative ${urlIndex + 1}...`);
-        }
-        
-        tryNextUrl();
-      }
-      
-      // Browser TTS with Hindi (closest to Kannada)
-      function useHindiBrowserTTS() {
-        const utterance = new SpeechSynthesisUtterance(textToSpeak);
-        utterance.rate = 0.5;
-        utterance.pitch = 1.0;
-        utterance.volume = 1.0;
-        utterance.lang = 'hi-IN';
-        
-        // Find Hindi voice
-        const voices = window.speechSynthesis.getVoices();
-        const hindiVoice = voices.find(v => v.lang.includes('hi'));
-        
-        if (hindiVoice) {
-          utterance.voice = hindiVoice;
-          toast.info("🔄 Using Hindi voice for Kannada text");
-        } else {
-          toast.warning("⚠️ No Hindi voice found, using default");
-        }
-        
-        utterance.onend = () => setIsSpeaking(false);
-        utterance.onerror = () => {
-          toast.error("❌ All TTS methods failed");
           setIsSpeaking(false);
+          toast.error("❌ Kannada TTS failed");
         };
         
         window.speechSynthesis.speak(utterance);
+        toast.success("🎤 Playing in Kannada");
+      } else {
+        // No Kannada voice available, try Hindi as alternative
+        const hindiVoice = voices.find(v => v.lang.includes('hi-IN') || v.lang.includes('Hindi'));
+        const tamilVoice = voices.find(v => v.lang.includes('ta-IN') || v.lang.includes('Tamil'));
+        
+        // Prefer Hindi over Tamil for better pronunciation of Kannada
+        const alternativeVoice = hindiVoice || tamilVoice;
+        
+        if (alternativeVoice) {
+          const utterance = new SpeechSynthesisUtterance(textToSpeak);
+          utterance.voice = alternativeVoice;
+          utterance.rate = 0.7;
+          utterance.pitch = 1.0;
+          utterance.volume = 1.0;
+          utterance.lang = alternativeVoice.lang;
+          
+          utterance.onend = () => {
+            setIsSpeaking(false);
+          };
+          
+          utterance.onerror = () => {
+            setIsSpeaking(false);
+            toast.error("❌ TTS failed");
+          };
+          
+          window.speechSynthesis.speak(utterance);
+          toast.info(`🎤 Playing in ${alternativeVoice.name} (Kannada voice not available)`);
+        } else {
+          // No Indian language voices available
+          setIsSpeaking(false);
+          toast.warning("⚠️ Kannada text-to-speech is not available. Please install Kannada language support in your browser or Windows settings.");
+        }
       }
     } else {
       // Use browser TTS for English
@@ -247,6 +203,10 @@ const TempleDetailPanel = ({ temple, onClose, nearbyTemples = [] }: TempleDetail
       utterance.volume = 1.0;
       utterance.lang = 'en-US';
       utterance.onend = () => setIsSpeaking(false);
+      utterance.onerror = () => {
+        setIsSpeaking(false);
+        toast.error("❌ TTS failed");
+      };
       
       window.speechSynthesis.speak(utterance);
       toast.success(translate("Playing temple story"));

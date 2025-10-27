@@ -5,6 +5,8 @@ import { templeDescriptions } from "@/data/translations/templeDescriptions";
 import { useLanguage } from "@/context/LanguageContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import TempleReviews from "@/components/TempleReviews";
+import FavoriteButton from "@/components/FavoriteButton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -154,6 +156,12 @@ const TempleDetail = () => {
                 <Share2 className="mr-2 h-4 w-4" />
                 Share
               </Button>
+              <FavoriteButton 
+                templeId={temple.id} 
+                variant="outline"
+                size="default"
+                className="gap-2"
+              />
             </div>
 
             {/* Description */}
@@ -214,6 +222,9 @@ const TempleDetail = () => {
                 </p>
               </CardContent>
             </Card>
+
+            {/* Reviews Section */}
+            <TempleReviews templeId={temple.id} />
 
             {/* Nearby Temples */}
             {nearbyTemples.length > 0 && (
